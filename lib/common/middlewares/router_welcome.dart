@@ -4,9 +4,9 @@ import 'package:firebase_chat_app/common/store/store.dart';
 
 import 'package:get/get.dart';
 
-/// 第一次欢迎页面
+/// First Time open
 class RouteWelcomeMiddleware extends GetMiddleware {
-  // priority 数字小优先级高
+  // priority the smaller the more important
   @override
   int? priority = 0;
 
@@ -16,11 +16,16 @@ class RouteWelcomeMiddleware extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     print(ConfigStore.to.isFirstOpen);
     if (ConfigStore.to.isFirstOpen == false) {
+                  print('ES PRIMERA VEZ LOGUEANDO--->');
+
       return null;
     } else if (UserStore.to.isLogin == true) {
-      return RouteSettings(name: AppRoutes.Application);
+      print('YA HA LOGUEADO--->');
+      return const RouteSettings(name: AppRoutes.Application);
     } else {
-      return RouteSettings(name: AppRoutes.SIGN_IN);
+            print('NO HA LOGUEADO--->');
+
+      return const RouteSettings(name: AppRoutes.SIGN_IN);
     }
   }
 }

@@ -14,7 +14,7 @@ Widget btnFlatButtonWidget({
   String fontName = "Montserrat",
   FontWeight fontWeight = FontWeight.w400,
 }) {
-  return Container(
+  return SizedBox(
     width: width.w,
     height: height.h,
     child: TextButton(
@@ -65,7 +65,7 @@ Widget btnFlatButtonBorderOnlyWidget({
   double height = 44,
   required String iconFileName,
 }) {
-  return Container(
+  return SizedBox(
     width: width.w,
     height: height.h,
     child: TextButton(

@@ -3,8 +3,11 @@ import 'package:firebase_chat_app/common/services/services.dart';
 import 'package:firebase_chat_app/common/values/values.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
-
+//esto es como si fuera un viewmodel que usa las funciones de un repo 
+//llamado storageService. El cual maneja directamente los emtodos de guarado y
+//obtencion para el local_storage 
 class ConfigStore extends GetxController {
+  //esta seria la instancia de esta clase la cual es la que usaremos.
   static ConfigStore get to => Get.find();
 
   bool isFirstOpen = false;
@@ -20,7 +23,7 @@ class ConfigStore extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    isFirstOpen = StorageService.to.getBool(STORAGE_DEVICE_FIRST_OPEN_KEY);
+     isFirstOpen = StorageService.to.getBool(STORAGE_DEVICE_FIRST_OPEN_KEY);
   }
 
   Future<void> getPlatform() async {
@@ -29,7 +32,7 @@ class ConfigStore extends GetxController {
 
   // 标记用户已打开APP
   Future<bool> saveAlreadyOpen() {
-    return StorageService.to.setBool(STORAGE_DEVICE_FIRST_OPEN_KEY, true);
+     return StorageService.to.setBool(STORAGE_DEVICE_FIRST_OPEN_KEY, true);
   }
 
   void onInitLocale() {
