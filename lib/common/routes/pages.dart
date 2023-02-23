@@ -1,7 +1,9 @@
 import 'package:firebase_chat_app/common/middlewares/middlewares.dart';
-import 'package:firebase_chat_app/pages/chat/index.dart';
+import 'package:firebase_chat_app/pages/message/chat/index.dart';
 import 'package:firebase_chat_app/pages/contact/index.dart';
 import 'package:firebase_chat_app/pages/application/index.dart';
+import 'package:firebase_chat_app/pages/message/photoview/index.dart';
+import 'package:firebase_chat_app/pages/profile/index.dart';
 import 'package:firebase_chat_app/pages/sign_in/index.dart';
 import 'package:firebase_chat_app/pages/welcome/index.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +64,17 @@ class AppPages {
         name: AppRoutes.Message,
         page: () => MessagePage(),
         binding: MessageBinding()),
+    */
     //我的
-    GetPage(name: AppRoutes.Me, page: () => MePage(), binding: MeBinding()),
-    
-  
-    GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),*/
+    GetPage(
+        name: AppRoutes.Me,
+        page: () => ProfilePage(),
+        binding: ProfileBinding()),
+
+    GetPage(
+      name: AppRoutes.Photoimgview,
+      page: () => PhotoImageViewPage(),
+      binding: PhotoImageViewBinding(),
+    ),
   ];
 }

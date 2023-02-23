@@ -13,6 +13,7 @@ class Msgcontent {
     this.addtime,
   });
 
+//same as fromJson
   factory Msgcontent.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options,
@@ -26,6 +27,7 @@ class Msgcontent {
     );
   }
 
+//same as toJson
   Map<String, dynamic> toFirestore() {
     return {
       if (uid != null) "uid": uid,

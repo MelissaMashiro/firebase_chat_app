@@ -1,14 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.firebase_chat_app">
     
-   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-   <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
  <!--  <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node />
    -->
    <application
         android:label="firebase_chat_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDehNrwOAdYQUSlszONRSxfl_C6Gpe-ZoU"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

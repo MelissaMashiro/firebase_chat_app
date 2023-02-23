@@ -1,6 +1,8 @@
 import 'package:firebase_chat_app/pages/application/index.dart';
 import 'package:firebase_chat_app/pages/contact/controller.dart';
- import 'package:get/get.dart';
+import 'package:firebase_chat_app/pages/message/controller.dart';
+import 'package:firebase_chat_app/pages/profile/controller.dart';
+import 'package:get/get.dart';
 
 class ApplicationBinding implements Bindings {
   @override
@@ -8,5 +10,8 @@ class ApplicationBinding implements Bindings {
     Get.lazyPut<ApplicationController>(() => ApplicationController());
     //aca tambien se inicializa el de contact, ya que esa vista s eusa dentro de esta. Si no se hace esto da error
     Get.lazyPut<ContactController>(() => ContactController());
+
+    Get.lazyPut<MessageController>(() => MessageController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

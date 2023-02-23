@@ -2,7 +2,9 @@ import 'package:firebase_chat_app/common/values/colors.dart';
 import 'package:firebase_chat_app/common/values/values.dart';
 import 'package:firebase_chat_app/pages/application/index.dart';
 import 'package:firebase_chat_app/pages/contact/view.dart';
- import 'package:flutter/material.dart';
+import 'package:firebase_chat_app/pages/message/view.dart';
+import 'package:firebase_chat_app/pages/profile/view.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 //Al extender este controller type, nos deja acceder al controller WelcomeController,
@@ -16,13 +18,9 @@ class ApplicationPage extends GetView<ApplicationController> {
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,
       children: const [
-        Center(
-          child: Text("Chat"),
-        ),
+        MessagePage(),
         ContactPage(),
-        Center(
-          child: Text("Profile"),
-        ),
+        ProfilePage(),
       ],
     );
   }
