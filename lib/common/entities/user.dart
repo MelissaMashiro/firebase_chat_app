@@ -20,9 +20,9 @@ class UserData {
   });
 
   factory UserData.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     final data = snapshot.data();
     return UserData(
       id: data?['id'],
@@ -54,12 +54,14 @@ class UserLoginResponseEntity {
   String? displayName;
   String? email;
   String? photoUrl;
+  String? type;
 
   UserLoginResponseEntity({
     this.accessToken,
     this.displayName,
     this.email,
     this.photoUrl,
+    this.type,
   });
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
@@ -68,6 +70,7 @@ class UserLoginResponseEntity {
         displayName: json["display_name"],
         email: json["email"],
         photoUrl: json["photoUrl"],
+        type: json["type"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +78,7 @@ class UserLoginResponseEntity {
         "display_name": displayName,
         "email": email,
         "photoUrl": photoUrl,
+        "type": type,
       };
 }
 
@@ -84,7 +88,6 @@ class MeListItem {
   String? explain;
   String? route;
 
-
   MeListItem({
     this.name,
     this.icon,
@@ -92,8 +95,7 @@ class MeListItem {
     this.route,
   });
 
-  factory MeListItem.fromJson(Map<String, dynamic> json) =>
-      MeListItem(
+  factory MeListItem.fromJson(Map<String, dynamic> json) => MeListItem(
         name: json["name"],
         icon: json["icon"],
         explain: json["explain"],

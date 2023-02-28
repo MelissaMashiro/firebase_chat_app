@@ -1,7 +1,7 @@
- import 'package:firebase_chat_app/common/values/values.dart';
+import 'package:firebase_chat_app/common/values/values.dart';
 import 'package:firebase_chat_app/common/widgets/button.dart';
 import 'package:firebase_chat_app/pages/sign_in/index.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -85,16 +85,31 @@ class SignInPage extends GetView<SignInController> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 30.h,
+              top: 15.h,
               left: 50.w,
               right: 50.w,
             ),
             child: btnFlatButtonWidget(
               onPressed: () {
-                controller.handleSignIn();
+                controller.handleSignIn("google");
               },
-              height: 55.h,
+              height: 44.h,
               title: "Google Login",
+              width: 200.w,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: 15.h,
+              left: 50.w,
+              right: 50.w,
+            ),
+            child: btnFlatButtonWidget(
+              onPressed: () {
+                controller.handleSignIn("facebook");
+              },
+              height: 44.h,
+              title: "Facebook Login",
               width: 200.w,
             ),
           ),

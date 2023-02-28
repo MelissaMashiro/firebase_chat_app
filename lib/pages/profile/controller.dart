@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:firebase_chat_app/common/entities/entities.dart';
 import 'package:firebase_chat_app/common/routes/names.dart';
 import 'package:firebase_chat_app/common/store/store.dart';
+import 'package:firebase_chat_app/pages/sign_in/controller.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'index.dart ';
 import 'package:get/get.dart';
@@ -12,16 +14,18 @@ class ProfileController extends GetxController {
   final state = ProfileState();
   ProfileController();
 
+/*
   final GoogleSignIn _googleSiginIn = GoogleSignIn(scopes: <String>[
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
   ]);
+  */
 
-  asyncLoasAllData() async {
+  asyncLoasAllData() async { 
     //getting user profile from localstorage
     String profile = await UserStore.to.getProfile();
 
-    if (!profile.isEmpty) {
+    if (profile.isNotEmpty) {
       UserLoginResponseEntity userData =
           UserLoginResponseEntity.fromJson(jsonDecode(profile));
       state.head_detail.value = userData;
@@ -29,8 +33,13 @@ class ProfileController extends GetxController {
   }
 
   Future<void> onLogout() async {
+    if (await UserStore.to.getUserType() == "google") {
+      await SignInController.to.signOut();
+    } else {
+      await FacebookAuth.instance.logOut();
+    }
+
     UserStore.to.onLogout();
-    await _googleSiginIn.signOut();
     Get.offAndToNamed(AppRoutes.SIGN_IN);
   }
 

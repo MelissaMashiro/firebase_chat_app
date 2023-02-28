@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Firebase Chat</string>
+    <string name="facebook_app_id">1234421937473535</string>
+    <string name="facebook_client_token">79caa14aa95dbcbefcabe893a2f75c4e</string>
+    <string name="fb_login_protocol_scheme">fb1234421937473535</string>
+</resources>
+
