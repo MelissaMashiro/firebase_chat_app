@@ -4,5 +4,7 @@
     <string name="facebook_app_id">1234421937473535</string>
     <string name="facebook_client_token">79caa14aa95dbcbefcabe893a2f75c4e</string>
     <string name="fb_login_protocol_scheme">fb1234421937473535</string>
+    <string name="default_notification_channel_id">com.melissa.chatapp</string>
+
 </resources>
 

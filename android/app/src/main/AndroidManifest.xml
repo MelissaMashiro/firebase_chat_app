@@ -50,6 +50,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--To set a default notification channel for ntoificarion in android-->
+        <meta-data
+    android:name="com.google.firebase.messaging.default_notification_channel_id"
+    android:value="@string/default_notification_channel_id"/>
+
+    
+        <!--To set a default notification icon for ntoificarion in android-->
+
+    <meta-data
+    android:name="com.google.firebase.messaging.default_notification_icon"
+    android:value="@string/default_notification_channel_id"/>
         
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

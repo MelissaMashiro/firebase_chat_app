@@ -123,7 +123,7 @@ class MessageController extends GetxController {
 //This token is very important for notifications
   getFcmToken() async {
     final fcmToken = await FirebaseMessaging.instance.getToken();
-
+    print('my token is ... $fcmToken');
     if (fcmToken != null) {
       var user =
           await db.collection("users").where("id", isEqualTo: token).get();
@@ -132,5 +132,49 @@ class MessageController extends GetxController {
         await db.collection("users").doc(doc_id).update({"fcmtoken": fcmToken});
       }
     }
+
+await FirebaseMessaging.instance.requestPermission(
+sound: true,
+badge: true,
+announcement: false,
+criticalAlert: false,
+provisional: false,
+);
+
+//this is an status that is only in IOS
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print(".......onMessage---> -......");
+      print(message.data);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print(
+          '---> on messageOpenApp: ${message.notification?.title} ${message.notification?.body}');
+      print(message.data);
+
+      if (message.data.isNotEmpty) {
+        var to_uid = message.data["to_uid"];
+        var to_name = message.data["to_name"];
+        var to_avatar = message.data["to_avatar"];
+        var doc_id = message.data["doc_id"];
+
+        Get.toNamed(
+          "/chat",
+          parameters: {
+            "doc_id": doc_id,
+            "to_uid": to_uid,
+            "to_name": to_name,
+            "to_avatar": to_avatar,
+          },
+        );
+      }
+    });
   }
 }

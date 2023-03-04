@@ -44,12 +44,14 @@ class UserStore extends GetxController {
     return StorageService.to.getString(STORAGE_USER_PROFILE_KEY);
   }
 
-  // 保存 profile
+  // Save profile
   Future<void> saveProfile(UserLoginResponseEntity profile) async {
     _isLogin.value = true;
     StorageService.to.setString(STORAGE_USER_PROFILE_KEY, jsonEncode(profile));
     StorageService.to.setString(STORAGE_USER_TYPE, jsonEncode(profile.type));
     setToken(profile.accessToken!);
+    //device to dewvice chat
+    _profile(profile);//actualizando la data del usuario que esta almacenado ahoea mismo en el storage
   }
 
   Future<String> getUserType() async {

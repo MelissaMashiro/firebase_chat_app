@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
 
 class ChatController extends GetxController {
   final state = ChatState();
@@ -24,6 +25,7 @@ class ChatController extends GetxController {
   final user_id = UserStore.to.token;
   final db = FirebaseFirestore.instance;
   var listener;
+  var user_profile = UserStore.to.profile;
 
   File? _photo;
   final ImagePicker _picker = ImagePicker();
@@ -158,6 +160,79 @@ class ChatController extends GetxController {
         "last_time": Timestamp.now(),
       },
     );
+
+    //notfiication message stuffs
+    await db.collection("message").doc(doc_id).update({
+      "last_msg": sendContent,
+      "last_time": Timestamp.now(),
+    });
+
+//getting all the informationof the user we are sending messages to
+//Actually this usually sneding notirficactionshoudmbwe done on backend,
+// but we dont have backend on this implementation.
+    var userbase = await db
+        .collection("users")
+        .withConverter(
+          fromFirestore: UserData.fromFirestore,
+          toFirestore: (UserData userData, options) => userData.toFirestore(),
+        )
+        .where("id", isEqualTo: state.to_uid.value)
+        .get();
+
+    if (userbase.docs.isNotEmpty) {
+      var title = "Message send by ${user_profile.displayName} (me)";
+      var body = sendContent;
+      var token = userbase.docs.first.data().fcmtoken;
+      if (token != null) {
+        sendNotification(title, body, token);
+      }
+    }
+  }
+
+  Future<void> sendNotification(
+    String title,
+    String bodyMsg,
+    String token,
+  ) async {
+    const String url = "https://fcm.googleapis.com/fcm/send";
+
+    var notification = '{'
+        '"notification": '
+        '{'
+        '"body":"$bodyMsg",'
+        '"title": "${title}",'
+        '"content_available":"true"'
+        '},'
+        '"priority": "high",'
+        '"to": "$token",'
+        '"data":' //Data necesaria para abrir el chat correpsondiente desde la notificacion
+        '{'
+        '"to_uid":"${user_id}",'
+        '"doc_id":"${doc_id}",' //doc_id del usuario al q va el mensaje
+        '"to_name": "${user_profile.displayName}",'
+        '"to_avatar":"${user_profile.photoUrl}"'
+        '},'
+        '}';
+
+    /* var notification2 = '{ "notification": {"body":"$bodyMsg",'
+        '"title": "${title}",'
+        '"content_available":"true"},'
+        '"priority": "high",'
+        '"to": "$token"'
+        '}';
+        */
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'keep-Alive': 'timeout = 5',
+        'Authorization':
+            'key=AAAAQwP61A4:APA91bGqKd4iYcou3GbHB9yDruVfhfJjTQpaUFRLpaC5Sh2rLvtKNHpfmgGv0SmEQyx7iP-Ib8k0XDo24peCLXA0o0zgRNFsY6WljFH-GjdmSlk7cPzdUOaTJ-SRe3mltF6aLqmOq05R',
+      },
+      body: notification,
+    );
+    print(response.body);
   }
 
   @override
